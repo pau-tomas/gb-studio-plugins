@@ -7,11 +7,11 @@ A set of experimental plugins for GB Studio 3.0. Use them at your own risk :)
 ### Display Advanced Menu
 Display a menu of multiple options and set the specified variable to the value of the chosen option. 
 
-Item position and navigation order can be set for each item in the `Items` tab. Dialogue box size and the opening and closing direction can be set in the `Layout` tab. 
+Menu option position and navigation order can be set for each item in the `Items` tab. The dialogue box size and the opening and closing direction can be set in the `Layout` tab. 
 
 There's no maximum character length per item, but the total amount of displayed characters is limited to by the number of tiles reserved for UI text (52 for non-color mode).
 
-_Note:_ The event can get veru long when there's a lot of items. 
+_Note:_ The event can get very long when there's a lot of items. 
 
 <img width="300" alt="Advanced Menu Items" src="screenshots/advanced_menu_items.png"/> <img width="300" alt="Advanced Menu Screenshot" src="screenshots/advanced_menu_screenshot.png"/>
 
@@ -25,11 +25,12 @@ There's no maximum character length for the text, but the total amount of displa
 <img width="300" alt="Mute Channel" src="screenshots/background_text.png"/>
 
 ## Real Time Clock
+A set of events that give access to the Real Time Clock functionality present in some GB cartridges.
 
-_Note:_ Cartridge type needs to be set to `MBC3` for RTC to work.
+_Note:_ Cartridge type needs to be set to `MBC3` in the project Settings, for RTC to work.
 
 ### Set Clock Time
-Set the values of the real time clock with a number or the value of a variable.
+Set the values of the real time clock fields with a number or the value of a variable.
 
 <img width="300" alt="Set Clock Time" src="screenshots/set_clock_time.png"/>
 
