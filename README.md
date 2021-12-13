@@ -88,3 +88,7 @@ Mutes one or more channels for the currently playing music.
 ## How to Install
 
 Drop the `plugins` folder in your project. All the above events will be available from the `Add Event` button.
+
+## Looking for more plugins?
+
+Check [NalaFala (Yousurname)'s GB Studio Plugin Collection](https://github.com/Y0UR-U5ERNAME/gbs-plugin-collection)
