@@ -1,13 +1,13 @@
-const id = "PT_EVENT_SET_PLAYER_FIELD_TO_VARIBALE";
-const groups = ["Plugin Pak", "EVENT_GROUP_VARIABLES"];
-const name = "Set Player Field to Variable";
+const id = "PT_EVENT_PLAYER_FIELD_STORE";
+const groups = ["Plugin Pak", "Player Fields", "EVENT_GROUP_VARIABLES"];
+const name = "Store Player Field In Variable";
 
 const fields = [
   {
     key: "field",
     label: "Field",
     type: "select",
-    defaultValue: "LAST_VARIABLE",
+    defaultValue: "pl_vel_x",
     options: [
       ["pl_vel_x", "Player Velocity X"],
       ["pl_vel_y", "Player Velocity Y"],
@@ -35,7 +35,7 @@ const compile = (input, helpers) => {
   const fieldName = `_${input.field}`;
   const variableAlias = getVariableAlias(input.variable);
 
-  _addComment("Set player field to variable");
+  _addComment("Store player field in variable");
   appendRaw(
     `VM_GET_${fieldVarTypeLookup[input.field]} ${variableAlias}, ${fieldName}`
   );
