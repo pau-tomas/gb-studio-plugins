@@ -85,6 +85,34 @@ Mutes one or more channels for the currently playing music.
 
 <img width="300" alt="Mute Channel" src="screenshots/mute_channel.png"/>
 
+## Player Fields
+
+### Store Player Field In Variable
+
+Store the value of a Player Field in a variable.
+
+The available fields are:
+
+- Platformer scenes:
+  - `Player Velocity X`: Current horizontal velocity for the player.
+  - `Player Velocity Y`: Current vertical (jumping) velocity for the player.
+  - `Player is in the ground`: `1` if the player is jumping or `1` if it's not.
+  - `Player is on ladder`: `0` if the player is on a ladder or `1` if it's not.
+
+<img width="300" alt="Store Player Field In Variable" src="screenshots/store_player_field.png"/>
+
+### Player Field Update
+
+Store the value of a Player Field in a variable.
+
+The available fields are:
+
+- Platformer scenes:
+  - `Player Velocity X`: Current horizontal velocity for the player.
+  - `Player Velocity Y`: Current vertical (jumping) velocity for the player.
+
+<img width="300" alt="Player Field Update" src="screenshots/player_field_update.png"/>
+
 ## How to Install
 
 Drop the `plugins` folder in your project. All the above events will be available from the `Add Event` button.
