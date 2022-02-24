@@ -2,7 +2,14 @@ const id = "PT_EVENT_SMOOTH_FADE";
 const groups = ["Plugin Pak", "EVENT_GROUP_SCREEN", "EVENT_GROUP_CAMERA"];
 const name = "Smooth Fade";
 
-const STEPS = 16;
+const STEPS = {
+  1: 8,
+  2: 8,
+  3: 16,
+  4: 24,
+  5: 32,
+  6: 32,
+};
 
 const DMG_PALETTE = {
   id: "dmg",
@@ -73,6 +80,11 @@ const fields = [
         ],
       },
     ],
+  },
+  {
+    key: "speed",
+    type: "fadeSpeed",
+    defaultValue: "3",
   },
   {
     key: "__scriptTabs",
@@ -171,9 +183,13 @@ const compile = (input, helpers) => {
 
   const delta = input.color === "black" ? -1 : 1;
 
+  const speed = input.speed || 3;
+  const maxSteps = STEPS[speed];
+  const shade = shadeFn(maxSteps);
+
   const bgFadeSteps = [];
   const sprFadeSteps = [];
-  for (let i = 0; i < STEPS; i++) {
+  for (let i = 0; i < maxSteps; i++) {
     const newBgFadeStep = [];
     for (const bgPalette of bgFadePalettes) {
       newBgFadeStep.push([
@@ -202,9 +218,10 @@ const compile = (input, helpers) => {
   const sprSteps =
     input.direction === "in" ? sprFadeSteps.reverse() : sprFadeSteps;
 
-  _addComment("Smooth fade");
+  _addComment(`Smooth fade ${input.direction} (${maxSteps} steps)`);
 
-  for (let i = 0; i < STEPS; i++) {
+  console.log(input, helpers);
+  for (let i = 0; i < maxSteps; i++) {
     const bgFadeStep = bgSteps[i];
     _paletteLoad(bgMask, ".PALETTE_BKG", true);
     for (const colors of bgFadeStep) {
@@ -242,7 +259,7 @@ const compile = (input, helpers) => {
         parseB(colors[3])
       );
     }
-    wait(6);
+    wait(speed * 2);
   }
 };
 
@@ -255,13 +272,13 @@ module.exports = {
   waitUntilAfterInitFade: true,
 };
 
-const shade = (rgb, step) => {
+const shadeFn = (maxSteps) => (rgb, step) => {
   const clamp = (value, min, max) => {
     return Math.min(max, Math.max(min, value));
   };
 
   const [r, g, b] = rgb.match(/.{2}/g);
-  const d = step * Math.floor(256 / STEPS);
+  const d = step * Math.floor(256 / maxSteps);
 
   const nr = clamp(parseInt(r, 16) + d, 0, 255)
     .toString(16)
