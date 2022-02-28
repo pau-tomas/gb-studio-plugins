@@ -103,7 +103,7 @@ The available fields are:
 
 ### Player Field Update
 
-Store the value of a Player Field in a variable.
+Change the value of a Player Field.
 
 The available fields are:
 
