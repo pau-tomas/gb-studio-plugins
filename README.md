@@ -121,7 +121,15 @@ The available fields are:
 
 Fade some or all of the current scene's background or sprites palettes to or from a white or black screen, interpolating the color values for a smooth fade.
 
-<img width="300" alt="Player Field Update" src="screenshots/smooth_fade.png"/>
+<img width="300" alt="Smooth Fade" src="screenshots/smooth_fade.png"/>
+
+## Background Tiles
+
+### Store Background Tile Id In Variable
+
+Store the background tile id for a certain position in the scene in a variable.
+
+<img width="300" alt="Store Background Tile Id In Variable" src="screenshots/get_background_tile_id.png"/>
 
 ## How to Install
 
