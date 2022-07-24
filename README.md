@@ -113,6 +113,16 @@ The available fields are:
 
 <img width="300" alt="Player Field Update" src="screenshots/player_field_update.png"/>
 
+## Screen
+
+### Smooth Fade
+
+**Color Mode Only**
+
+Fade some or all of the current scene's background or sprites palettes to or from a white or black screen, interpolating the color values for a smooth fade.
+
+<img width="300" alt="Player Field Update" src="screenshots/smooth_fade.png"/>
+
 ## How to Install
 
 Drop the `plugins` folder in your project. All the above events will be available from the `Add Event` button.
