@@ -202,6 +202,7 @@ const compile = (input, helpers) => {
     _displayText,
     appendRaw,
     _addNL,
+    _stackPop,
   } = helpers;
 
   const maxHeight = input.maxHeight || 7;
@@ -210,6 +211,7 @@ const compile = (input, helpers) => {
   const textY = input.textY === null ? 1 : input.textY;
   const textHeight = input.textHeight === null ? 3 : input.textHeight;
   const renderOnTop = input.renderOnTop;
+  const isModal = input.closeWhen !== "notModal";
 
   console.log(input);
   console.log(maxHeight, minHeight, textX, textY, textHeight);
@@ -242,12 +244,10 @@ const compile = (input, helpers) => {
   _addComment("Advanced Text Dialogue");
 
   if (renderOnTop) {
-    appendRaw(
-      `
+    appendRaw(`; Set overlay scanline cut
 VM_PUSH_CONST 0
 VM_GET_UINT8 .ARG0, _overlay_cut_scanline
-VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`
-    );
+VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
   }
 
   textInputs.forEach((text, textIndex) => {
@@ -295,7 +295,6 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`
 
     _displayText();
 
-    const isModal = input.closeWhen !== "notModal";
     if (isModal) {
       const waitFlags = [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"];
       if (input.closeWhen === "key") {
@@ -313,18 +312,22 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`
       _overlayWait(isModal, waitFlags);
     }
 
-    if (isModal && textIndex === textInputs.length - 1) {
-      _overlayMoveTo(0, 18, speedOut);
-      _overlayWait(isModal, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
+    if (textIndex === textInputs.length - 1) {
+      if (isModal) {
+        _overlayMoveTo(0, 18, speedOut);
+        _overlayWait(isModal, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
+      }
     }
   });
 
-  if (renderOnTop) {
-    _overlayMoveTo(0, 18, speedOut);
-    appendRaw(`
+  if (isModal && renderOnTop) {
+    appendRaw(`; Reset overlay scanline cut
 VM_IDLE
-VM_SET_UINT8 _overlay_cut_scanline, .ARG0
-VM_POP 1`);
+VM_SET_UINT8 _overlay_cut_scanline, .ARG0`);
+  }
+
+  if (renderOnTop) {
+    appendRaw(`VM_POP 1`);
   }
 
   _addNL();
