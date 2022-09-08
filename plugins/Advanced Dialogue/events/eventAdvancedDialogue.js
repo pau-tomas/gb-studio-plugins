@@ -150,7 +150,7 @@ const fields = [].concat(
       key: `renderOnTop`,
       label: "Render On Top (doesn't work in scenes with parallax)",
       type: "checkbox",
-      defaultValue: true,
+      defaultValue: false,
       conditions: [
         {
           key: "__scriptTabs",
