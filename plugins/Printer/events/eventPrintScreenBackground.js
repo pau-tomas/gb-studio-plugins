@@ -67,7 +67,7 @@ VM_POP  6
 
   appendRaw(`; Detect printer and print
 VM_PRINTER_DETECT       ${printStatusRef}, 30
-VM_PRINT_OVERLAY        ${printStatusRef}, 0, 18
+VM_PRINT_OVERLAY        ${printStatusRef}, 0, 18, 0
 `);
 
   appendRaw(`; Check status for error code
