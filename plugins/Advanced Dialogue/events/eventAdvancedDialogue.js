@@ -50,14 +50,69 @@ const fields = [].concat(
       ],
     },
     {
-      key: `showBorder`,
-      label: "Show Border",
-      type: "checkbox",
-      defaultValue: "true",
+      key: `position`,
+      label: "Position",
+      type: "select",
+      defaultValue: "bottom",
+      options: [
+        ["bottom", "Bottom"],
+        ["top", "Top"],
+      ],
       conditions: [
         {
           key: "__scriptTabs",
           in: ["layout"],
+        },
+      ],
+    },
+    {
+      label:
+        "⚠️ Displaying the dialogue on top won't work in scenes with parallax.",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+      ],
+    },
+    {
+      type: "group",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+      ],
+      fields: [
+        {
+          key: `showBorder`,
+          label: "Show Border",
+          type: "checkbox",
+          defaultValue: "true",
+          width: "50%",
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["layout"],
+            },
+          ],
+        },
+        {
+          key: `clearPrevious`,
+          label: "Clear Previous Content",
+          type: "checkbox",
+          defaultValue: true,
+          width: "50%",
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["layout"],
+            },
+          ],
         },
       ],
     },
@@ -88,7 +143,7 @@ const fields = [].concat(
         },
         {
           key: `textHeight`,
-          label: "Text Height",
+          label: "Text Max Height",
           type: "number",
           min: 1,
           max: 18,
@@ -98,7 +153,7 @@ const fields = [].concat(
     },
     {
       key: `closeWhen`,
-      label: "Close Dialogue When...",
+      label: "Close When...",
       type: "select",
       defaultValue: "key",
       options: [
@@ -110,6 +165,24 @@ const fields = [].concat(
         {
           key: "__scriptTabs",
           in: ["layout"],
+        },
+      ],
+    },
+    {
+      label:
+        '⚠️ Don\'t forget to reset "overlay_cut_scanline" after manually closing a non-modal dialogue displaying on top.',
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+        {
+          key: "closeWhen",
+          eq: "notModal",
         },
       ],
     },
@@ -131,30 +204,6 @@ const fields = [].concat(
         {
           key: "closeWhen",
           eq: "key",
-        },
-      ],
-    },
-    {
-      key: `clearPrevious`,
-      label: "Clear Previous Content",
-      type: "checkbox",
-      defaultValue: true,
-      conditions: [
-        {
-          key: "__scriptTabs",
-          in: ["layout"],
-        },
-      ],
-    },
-    {
-      key: `renderOnTop`,
-      label: "Render On Top (doesn't work in scenes with parallax)",
-      type: "checkbox",
-      defaultValue: false,
-      conditions: [
-        {
-          key: "__scriptTabs",
-          in: ["layout"],
         },
       ],
     },
@@ -210,7 +259,7 @@ const compile = (input, helpers) => {
   const textX = input.textX === null ? 1 : input.textX;
   const textY = input.textY === null ? 1 : input.textY;
   const textHeight = input.textHeight === null ? 3 : input.textHeight;
-  const renderOnTop = input.renderOnTop;
+  const renderOnTop = input.position === "top";
   const isModal = input.closeWhen !== "notModal";
 
   console.log(input);
