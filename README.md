@@ -1,6 +1,6 @@
-# GB Studio 3.0 - Plugin Pak
+# GB Studio 3.1 - Plugin Pak
 
-A set of experimental plugins for GB Studio 3.0. Use them at your own risk :)
+A set of experimental plugins for GB Studio 3.1. Use them at your own risk :)
 
 ## Dialogue & Menus
 
