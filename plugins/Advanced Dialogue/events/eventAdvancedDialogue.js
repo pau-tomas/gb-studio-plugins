@@ -50,14 +50,69 @@ const fields = [].concat(
       ],
     },
     {
-      key: `showBorder`,
-      label: "Show Border",
-      type: "checkbox",
-      defaultValue: "true",
+      key: `position`,
+      label: "Position",
+      type: "select",
+      defaultValue: "bottom",
+      options: [
+        ["bottom", "Bottom"],
+        ["top", "Top"],
+      ],
       conditions: [
         {
           key: "__scriptTabs",
           in: ["layout"],
+        },
+      ],
+    },
+    {
+      label:
+        "⚠️ Displaying the dialogue on top won't work in scenes with parallax.",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+      ],
+    },
+    {
+      type: "group",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+      ],
+      fields: [
+        {
+          key: `showBorder`,
+          label: "Show Border",
+          type: "checkbox",
+          defaultValue: "true",
+          width: "50%",
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["layout"],
+            },
+          ],
+        },
+        {
+          key: `clearPrevious`,
+          label: "Clear Previous Content",
+          type: "checkbox",
+          defaultValue: true,
+          width: "50%",
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["layout"],
+            },
+          ],
         },
       ],
     },
@@ -88,7 +143,7 @@ const fields = [].concat(
         },
         {
           key: `textHeight`,
-          label: "Text Height",
+          label: "Text Max Height",
           type: "number",
           min: 1,
           max: 18,
@@ -98,7 +153,7 @@ const fields = [].concat(
     },
     {
       key: `closeWhen`,
-      label: "Close Dialogue When...",
+      label: "Close When...",
       type: "select",
       defaultValue: "key",
       options: [
@@ -110,6 +165,24 @@ const fields = [].concat(
         {
           key: "__scriptTabs",
           in: ["layout"],
+        },
+      ],
+    },
+    {
+      label:
+        '⚠️ Don\'t forget to reset "overlay_cut_scanline" after manually closing a non-modal dialogue displaying on top.',
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+        {
+          key: "closeWhen",
+          eq: "notModal",
         },
       ],
     },
@@ -131,18 +204,6 @@ const fields = [].concat(
         {
           key: "closeWhen",
           eq: "key",
-        },
-      ],
-    },
-    {
-      key: `clearPrevious`,
-      label: "Clear Previous Content",
-      type: "checkbox",
-      defaultValue: true,
-      conditions: [
-        {
-          key: "__scriptTabs",
-          in: ["layout"],
         },
       ],
     },
@@ -190,6 +251,7 @@ const compile = (input, helpers) => {
     _displayText,
     appendRaw,
     _addNL,
+    _stackPop,
   } = helpers;
 
   const maxHeight = input.maxHeight || 7;
@@ -197,6 +259,8 @@ const compile = (input, helpers) => {
   const textX = input.textX === null ? 1 : input.textX;
   const textY = input.textY === null ? 1 : input.textY;
   const textHeight = input.textHeight === null ? 3 : input.textHeight;
+  const renderOnTop = input.position === "top";
+  const isModal = input.closeWhen !== "notModal";
 
   console.log(input);
   console.log(maxHeight, minHeight, textX, textY, textHeight);
@@ -220,13 +284,20 @@ const compile = (input, helpers) => {
   console.log(minHeight, minNumLines, maxHeight);
 
   const textBoxHeight = Math.max(minNumLines, minHeight);
-  const textBoxY = 18 - textBoxHeight;
+  const textBoxY = renderOnTop ? 0 : 18 - textBoxHeight;
 
   const x = decOct(1 + textX + (avatarId ? 3 : 0));
   const y = decOct(1 + textY);
   const textPosSequence = `\\003\\${x}\\${y}`;
 
   _addComment("Advanced Text Dialogue");
+
+  if (renderOnTop) {
+    appendRaw(`; Set overlay scanline cut
+VM_PUSH_CONST 0
+VM_GET_UINT8 .ARG0, _overlay_cut_scanline
+VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
+  }
 
   textInputs.forEach((text, textIndex) => {
     let avatarIndex = undefined;
@@ -273,38 +344,41 @@ const compile = (input, helpers) => {
 
     _displayText();
 
-    const isModal = input.closeWhen !== "notModal";
     if (isModal) {
-      const waitFlags = [".UI_WAIT_WINDOW"];
-      switch (input.closeWhen) {
-        case "text":
-          waitFlags.push(".UI_WAIT_TEXT");
-          break;
-        case "key":
-          console.log("BUTTON", input.closeButton);
-          if (input.closeButton === "a") {
-            waitFlags.push(".UI_WAIT_BTN_A");
-          }
-          if (input.closeButton === "b") {
-            waitFlags.push(".UI_WAIT_BTN_B");
-          }
-          if (input.closeButton === "any") {
-            waitFlags.push(".UI_WAIT_BTN_ANY");
-          }
-          break;
-        default:
-          break;
+      const waitFlags = [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"];
+      if (input.closeWhen === "key") {
+        console.log("BUTTON", input.closeButton);
+        if (input.closeButton === "a") {
+          waitFlags.push(".UI_WAIT_BTN_A");
+        }
+        if (input.closeButton === "b") {
+          waitFlags.push(".UI_WAIT_BTN_B");
+        }
+        if (input.closeButton === "any") {
+          waitFlags.push(".UI_WAIT_BTN_ANY");
+        }
       }
       _overlayWait(isModal, waitFlags);
     }
 
-    if (isModal && textIndex === textInputs.length - 1) {
-      _overlayMoveTo(0, 18, speedOut);
-      _overlayWait(isModal, [".UI_WAIT_WINDOW"]);
-    } else {
-      _overlayWait(isModal, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
+    if (textIndex === textInputs.length - 1) {
+      if (isModal) {
+        _overlayMoveTo(0, 18, speedOut);
+        _overlayWait(isModal, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
+      }
     }
   });
+
+  if (isModal && renderOnTop) {
+    appendRaw(`; Reset overlay scanline cut
+VM_IDLE
+VM_SET_UINT8 _overlay_cut_scanline, .ARG0`);
+  }
+
+  if (renderOnTop) {
+    appendRaw(`VM_POP 1`);
+  }
+
   _addNL();
 };
 

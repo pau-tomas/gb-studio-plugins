@@ -13,13 +13,14 @@ The `Text` tab behaves exactly like the **Display Dialogue** event.
 The `Layout` tab allows to configure multiple options for the dialogue box:
 
 - Minimum and maximum height of the display box, and if the border should be rendered or not.
-- The initial position of the text.
+- The starting position of the text.
 - The maxmimum number of lines before the text will start scrolling up.
 - Configure when the dialogue will close:
   - When a button is pressed
   - When the text finishes rendering
   - Never (the dialogue box will remain on screen and allow other interactions. The dialogue can be hidden using the **Hide Overlay** or **Overlay Move To** events).
 - If the previous content should be removed when displaying the dialogue. This is useful to avoid the text flickering when dialogue boxes are open with Instant speed.
+- If the dialogue should render at the bottom or the top of the screen. (_Note:_ Pay attention to the warnings on the event when using top position)
 
 <img width="300" alt="Advanced Dialogue Text" src="screenshots/advanced_dialogue_text.png"/><img width="300" alt="Advanced Dialogue Layout" src="screenshots/advanced_dialogue_layout.png"/>
 
@@ -46,6 +47,16 @@ Renders a line of text at a specified position in the scene background.
 There's no maximum character length for the text, but the total amount of displayed characters in a scene is limited to by the number of tiles reserved for UI text (52 for non-color mode), this includes text displayed with this event but also any other dialogue or menu.
 
 <img width="300" alt="Mute Channel" src="screenshots/background_text.png"/>
+
+## Printer
+
+_Note:_ The embedded GB Studio emulator doesn't support for printing, so this event will always fail when tested there. Use a real device or an emulator with printer support.
+
+### Print Screen Background
+
+Prints the visible background of the current scene using GB Printer. **On Error:** A script to run if there's an error when trying to print.
+
+<img width="300" alt="Advanced Menu Layout" src="screenshots/print_scene_background.png"/>
 
 ## Real Time Clock
 
