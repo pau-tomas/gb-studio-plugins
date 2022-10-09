@@ -50,9 +50,11 @@ const compile = (input, helpers) => {
 
   _addComment("Background Text");
 
-  appendRaw(`VM_PUSH_CONST 0
-VM_GET_UINT8 .ARG0, _overlay_priority
-VM_SET_CONST_UINT8 _overlay_priority, 0`);
+  if (helpers.settings.customColorsEnabled) {
+    appendRaw(`VM_PUSH_CONST 0
+  VM_GET_UINT8 .ARG0, _overlay_priority
+  VM_SET_CONST_UINT8 _overlay_priority, 0`);
+  }
 
   appendRaw(`VM_SWITCH_TEXT_LAYER .TEXT_LAYER_BKG`);
 
@@ -66,8 +68,10 @@ VM_SET_CONST_UINT8 _overlay_priority, 0`);
 
   appendRaw(`VM_SWITCH_TEXT_LAYER .TEXT_LAYER_WIN`);
 
-  appendRaw(`VM_SET_UINT8 _overlay_priority, .ARG0
+  if (helpers.settings.customColorsEnabled) {
+    appendRaw(`VM_SET_UINT8 _overlay_priority, .ARG0
 VM_POP 1`);
+  }
 };
 
 module.exports = {
