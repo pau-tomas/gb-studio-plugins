@@ -46,6 +46,8 @@ Renders a line of text at a specified position in the scene background.
 
 There's no maximum character length for the text, but the total amount of displayed characters in a scene is limited to by the number of tiles reserved for UI text (52 for non-color mode), this includes text displayed with this event but also any other dialogue or menu.
 
+Unfortunately autocomplete of variables isn't available for single line textboxes in plugins so you need to use $xxx$ to render variables, for example $100 to render variable 100.
+
 <img width="300" alt="Mute Channel" src="screenshots/background_text.png"/>
 
 ## Printer
