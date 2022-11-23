@@ -11,6 +11,8 @@ const fields = [
     options: [
       ["scroll_x", "Scroll X"],
       ["scroll_y", "Scroll Y"],
+      ["camera_x", "Camera X"],
+      ["camera_y", "Camera Y"],
       ["camera_deadzone_x", "Camera Deadzone X"],
       ["camera_deadzone_y", "Camera Deadzone Y"],
       ["camera_offset_x", "Camera Offset X"],
@@ -30,6 +32,8 @@ const compile = (input, helpers) => {
   const fieldVarTypeLookup = {
     scroll_x: "INT16",
     scroll_y: "INT16",
+    camera_x: "INT16",
+    camera_y: "INT16",
     camera_deadzone_x: "UINT8",
     camera_deadzone_y: "UINT8",
     camera_offset_x: "UINT8",

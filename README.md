@@ -134,6 +134,8 @@ Store the value of a Camera Field in a variable.
 
 The available fields are:
 
+- `Camera X`: Current horizontal camera position.
+- `Camera Y`: Current vertical camera position.
 - `Scroll X`: Current horizontal scroll position.
 - `Scroll Y`: Current vertical scroll position.
 - `Camera Deadzone X`: Current horizontal edge for the camera window.
