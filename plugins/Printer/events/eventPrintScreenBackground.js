@@ -62,7 +62,7 @@ VM_RPN
 
 VM_OVERLAY_SET_SUBMAP_EX  .ARG5
 
-VM_POP  6
+VM_POP  8
 `);
 
   appendRaw(`; Detect printer and print
@@ -76,7 +76,9 @@ VM_RPN
   .R_INT8     0xF0
   .R_OPERATOR .B_AND
   .R_STOP
-VM_IF_CONST             .EQ, .ARG0, 0, ${printSuccesfulLabel}, 1
+VM_IF_CONST             .EQ, .ARG0, 0, ${printSuccesfulLabel}$, 1
+
+VM_POP 1
 `);
 
   _addNL();
