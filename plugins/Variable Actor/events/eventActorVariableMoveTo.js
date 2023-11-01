@@ -1,5 +1,5 @@
 const id = "EVENT_ACTOR_VAR_MOVE_TO";
-const groups = ["EVENT_GROUP_ACTOR"];
+const groups = ["Plugin Pak", "EVENT_GROUP_ACTOR"];
 const name = "Move Variable Actor To";
 
 const fields = [

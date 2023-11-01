@@ -1,5 +1,5 @@
 const id = "EVENT_ACTOR_VAR_GET_POSITION";
-const groups = ["EVENT_GROUP_ACTOR", "EVENT_GROUP_VARIABLES"];
+const groups = ["Plugin Pak", "EVENT_GROUP_ACTOR", "EVENT_GROUP_VARIABLES"];
 const name = "Store Variable Actor Position In Variables";
 
 const fields = [

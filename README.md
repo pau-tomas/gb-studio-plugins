@@ -168,6 +168,13 @@ Fade some or all of the current scene's background or sprites palettes to or fro
 
 <img width="300" alt="Player Field Update" src="screenshots/smooth_fade.png"/>
 
+## β Plugins
+
+The plugins in this category are even more experimental than the ones above and might change in the future.
+
+- **Move Variable Actor To and Store Variable Actor Position In Variables**:
+  - These events duplicate existing GB Studio Actor events but instead of using a dropdown to select the actor they use a variable. The value of the variable represents the index of the actor in the scene (the player is always `0` and the rest of the actors have an index assigned based on when they were added to the scene).
+
 ## How to Install
 
 Drop the `plugins` folder in your project. All the above events will be available from the `Add Event` button.
