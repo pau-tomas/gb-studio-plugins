@@ -176,6 +176,8 @@ The plugins in this category are even more experimental than the ones above and 
   - These events duplicate existing GB Studio Actor events but instead of using a dropdown to select the actor they use a variable. The value of the variable represents the index of the actor in the scene (the player is always `0` and the rest of the actors have an index assigned based on when they were added to the scene).
 - **Actor FX**:
   - Run visual effects on an actor. Currently only Split In / Split Out effects are implemented. More to come (maybe?).
+- **Locked Event Group and Unlocked Event Group**:
+  - Lock or unlock the executuon of parts of your script. A locked script doesn't allow other scripts to run in parallel.
 
 ## How to Install
 
