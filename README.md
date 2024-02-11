@@ -178,6 +178,8 @@ The plugins in this category are even more experimental than the ones above and 
   - Run visual effects on an actor. Currently only Split In / Split Out effects are implemented. More to come (maybe?).
 - **Locked Event Group and Unlocked Event Group**:
   - Lock or unlock the executuon of parts of your script. A locked script doesn't allow other scripts to run in parallel.
+- **Pin Actor to Screen and Unpin Actor from Screen**:
+  - Pin or Unpin the actor to its current screen coordinates. Be aware of the current state of the actor: If it's already pinned or unpinned when the event is called its position will be wrongly offset based on the scroll position.
 
 ## How to Install
 
