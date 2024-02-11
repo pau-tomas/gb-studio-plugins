@@ -185,4 +185,7 @@ Drop the `plugins` folder in your project. All the above events will be availabl
 
 ## Looking for more plugins?
 
-Check [NalaFala (Yousurname)'s GB Studio Plugin Collection](https://github.com/Y0UR-U5ERNAME/gbs-plugin-collection)
+- [NalaFala (Yousurname)'s GB Studio Plugin Collection](https://github.com/Y0UR-U5ERNAME/gbs-plugin-collection)
+- [Platformer+](https://github.com/becomingplural/GBS_PlatformerPlus)
+- [Advanced Dialog and Menu vB](https://github.com/dochardware/Advanced-Dialog-and-Menu)
+- [Shin's GB Studio plugins](https://github.com/shin-gamedev/gbs-plugins)
