@@ -393,7 +393,10 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
 
     appendRaw(
       `VM_OVERLAY_SET_SCROLL   ${textX + (avatarId ? 3 : 0)}, ${textY}, ${
-        (input.showBorder ? 19 : 20) - (avatarId ? 3 : 0) - textX
+        (input.showBorder ? 19 : 20) -
+        (avatarId ? 3 : 0) -
+        textX -
+        renderOverlay.xOffset
       }, ${textHeight}, .UI_COLOR_WHITE`
     );
 
