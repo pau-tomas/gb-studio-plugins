@@ -382,7 +382,7 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
     // If there's an offset then we need to offset the starting position of the overlay.
     // Use -3 for speed to instantly move the overlay to just below the screen with the correct offsets.
     // If we don't do this then the overlay will move in from the bottom left across the screen instead of straight up
-    if (renderOverlay.xOffset > 0) {
+    if (textIndex === 0 && renderOverlay.xOffset > 0) {
       _overlayMoveTo(renderOverlay.xOffset, 18, -3);
     }
 
