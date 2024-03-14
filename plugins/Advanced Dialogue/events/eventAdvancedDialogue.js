@@ -86,9 +86,9 @@ const fields = [].concat(
       defaultValue: "100-full",
       options: [
         ["100-full", "Full"],
-        ["50-left", "50% Left Aligned"],
+        //["50-left", "50% Left Aligned"],
         ["50-right", "50% Right Aligned"],
-        ["75-left", "75% Left Aligned"],
+        //["75-left", "75% Left Aligned"],
         ["75-right", "75% Right Aligned"],
       ],
       conditions: [
