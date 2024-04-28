@@ -32,7 +32,11 @@ const compile = (input, helpers) => {
   _addComment("Print screen background");
 
   const printStatusRef = _declareLocal("print_status", 1, true);
+  const isCgbRef = _declareLocal("is_cgb", 1, true);
+
   const printSuccesfulLabel = getNextLabel();
+  const colorNotSupportedLabelA = getNextLabel();
+  const colorNotSupportedLabelB = getNextLabel();
 
   appendRaw(`; Copy the background tiles to the overlay
 VM_PUSH_CONST 0
@@ -65,6 +69,16 @@ VM_OVERLAY_SET_SUBMAP_EX  .ARG5
 VM_POP  8
 `);
 
+  appendRaw(`; Fast CPU is to fast for printer. 
+; If in Color supported set the CPU to slow. 
+
+VM_SET_UINT8            ${isCgbRef}, __is_CGB
+VM_IF_CONST             .NE, ${isCgbRef}, 1, ${colorNotSupportedLabelA}$, 0
+
+VM_CALL_NATIVE 1, _cpu_slow
+`);
+  _label(colorNotSupportedLabelA);
+
   appendRaw(`; Detect printer and print
 VM_PRINTER_DETECT       ${printStatusRef}, 30
 VM_PRINT_OVERLAY        ${printStatusRef}, 0, 18, 0
@@ -84,6 +98,15 @@ VM_POP 1
   _addNL();
   _compilePath(input.true);
   _label(printSuccesfulLabel);
+
+  appendRaw(`; Set the CPU back to fast.
+VM_SET_UINT8            ${isCgbRef}, __is_CGB
+VM_IF_CONST             .NE, ${isCgbRef}, 1, ${colorNotSupportedLabelB}$, 0
+
+VM_CALL_NATIVE 1, _cpu_fast
+`);
+  _label(colorNotSupportedLabelB);
+
   _addNL();
 };
 

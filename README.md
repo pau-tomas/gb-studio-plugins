@@ -52,11 +52,13 @@ Unfortunately, autocomplete of variables isn't available for single line textbox
 
 ## Printer
 
-_Note:_ The embedded GB Studio emulator doesn't support for printing, so this event will always fail when tested there. Use a real device or an emulator with printer support.
+_Note:_ The embedded GB Studio emulator doesn't have support for printing, this event will always fail when tested there. Use a real device or an emulator with printer support.
 
 ### Print Screen Background
 
-Prints the visible background of the current scene using GB Printer. **On Error:** A script to run if there's an error when trying to print.
+Prints the visible background of the current scene using GB Printer. In Color Mode the CPU will be set to Single-speed mode while the event is running.
+
+* **On Error:** A script to run if there's an error when trying to print.
 
 <img width="300" alt="Advanced Menu Layout" src="screenshots/print_scene_background.png"/>
 
