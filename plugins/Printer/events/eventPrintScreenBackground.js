@@ -4,17 +4,47 @@ const name = "Print Screen Background";
 
 const fields = [
   {
-    key: "__scriptTabs",
-    type: "tabs",
-    defaultValue: "save",
-    values: {
-      save: "On Error",
-    },
+    label:
+      "Prints the content of the current scene background. Requires a connected GB Printer.",
+  },
+  {
+    key: "__collapse",
+    label: "If Print Successful",
+    type: "collapsable",
+    defaultValue: true,
+  },
+
+  {
+    key: "false",
+    label: "On Success",
+    type: "events",
+  },
+  {
+    key: "__collapseElse",
+    label: "Else",
+    type: "collapsable",
+    defaultValue: true,
+    conditions: [
+      {
+        key: "__disableElse",
+        ne: true,
+      },
+    ],
   },
   {
     key: "true",
     label: "On Error",
     type: "events",
+    conditions: [
+      {
+        key: "__collapseElse",
+        ne: true,
+      },
+      {
+        key: "__disableElse",
+        ne: true,
+      },
+    ],
   },
 ];
 
@@ -26,6 +56,7 @@ const compile = (input, helpers) => {
     _addComment,
     _compilePath,
     _label,
+    _jump,
     _addNL,
   } = helpers;
 
@@ -34,7 +65,8 @@ const compile = (input, helpers) => {
   const printStatusRef = _declareLocal("print_status", 1, true);
   const isCgbRef = _declareLocal("is_cgb", 1, true);
 
-  const printSuccesfulLabel = getNextLabel();
+  const printSuccessfulLabel = getNextLabel();
+  const printEndLabel = getNextLabel();
   const colorNotSupportedLabelA = getNextLabel();
   const colorNotSupportedLabelB = getNextLabel();
 
@@ -80,6 +112,7 @@ VM_CALL_NATIVE 1, _cpu_slow
   _label(colorNotSupportedLabelA);
 
   appendRaw(`; Detect printer and print
+VM_IDLE  
 VM_PRINTER_DETECT       ${printStatusRef}, 30
 VM_PRINT_OVERLAY        ${printStatusRef}, 0, 18, 0
 `);
@@ -90,14 +123,10 @@ VM_RPN
   .R_INT8     0xF0
   .R_OPERATOR .B_AND
   .R_STOP
-VM_IF_CONST             .EQ, .ARG0, 0, ${printSuccesfulLabel}$, 1
+VM_IF_CONST             .EQ, .ARG0, 0, ${printSuccessfulLabel}$, 1
 
 VM_POP 1
 `);
-
-  _addNL();
-  _compilePath(input.true);
-  _label(printSuccesfulLabel);
 
   appendRaw(`; Set the CPU back to fast.
 VM_SET_UINT8            ${isCgbRef}, __is_CGB
@@ -106,6 +135,13 @@ VM_IF_CONST             .NE, ${isCgbRef}, 1, ${colorNotSupportedLabelB}$, 0
 VM_CALL_NATIVE 1, _cpu_fast
 `);
   _label(colorNotSupportedLabelB);
+
+  _addNL();
+  _compilePath(input.true);
+  _jump(printEndLabel);
+  _label(printSuccessfulLabel);
+  _compilePath(input.false);
+  _label(printEndLabel);
 
   _addNL();
 };
