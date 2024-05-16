@@ -9,7 +9,8 @@ const decOct = (dec) => wrap8Bit(dec).toString(8).padStart(3, "0");
 const fields = [
   {
     key: "text",
-    type: "text",
+    type: "textarea",
+    singleLine: true,
     placeholder: "",
     multiple: false,
     defaultValue: "",
