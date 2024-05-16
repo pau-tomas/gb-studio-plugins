@@ -1,6 +1,6 @@
-# GB Studio 3.2 - Plugin Pak
+# GB Studio 4.0 - Plugin Pak
 
-A set of experimental plugins for GB Studio 3.2. Use them at your own risk :)
+A set of experimental plugins for GB Studio 4.0. Use them at your own risk :)
 
 ## Dialogue & Menus
 
