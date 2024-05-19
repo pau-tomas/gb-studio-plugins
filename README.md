@@ -12,7 +12,7 @@ The `Text` tab behaves exactly like the **Display Dialogue** event.
 
 The `Layout` tab allows to configure multiple options for the dialogue box:
 
-- Minimum and maximum height of the display box, and if the border should be rendered or not.
+- Minimum and maximum height of the display box, and if the frame should be rendered or not.
 - The starting position of the text.
 - The maxmimum number of lines before the text will start scrolling up.
 - Configure when the dialogue will close:
@@ -172,6 +172,8 @@ Fade some or all of the current scene's background or sprites palettes to or fro
 
 The plugins in this category are even more experimental than the ones above and might change in the future.
 
+- **Set Dialogue Frame**:
+  - Replace the dialogue frame with a tileset. Only 24x24px tilesets are valid. 
 - **Move Variable Actor To and Store Variable Actor Position In Variables**:
   - These events duplicate existing GB Studio Actor events but instead of using a dropdown to select the actor they use a variable. The value of the variable represents the index of the actor in the scene (the player is always `0` and the rest of the actors have an index assigned based on when they were added to the scene).
 - **Actor FX**:

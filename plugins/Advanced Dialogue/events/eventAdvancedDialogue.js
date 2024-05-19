@@ -90,7 +90,7 @@ const fields = [].concat(
       fields: [
         {
           key: `showBorder`,
-          label: "Show Border",
+          label: "Show Frame",
           type: "checkbox",
           defaultValue: "true",
           width: "50%",
