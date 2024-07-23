@@ -1,6 +1,6 @@
-# GB Studio 3.2 - Plugin Pak
+# GB Studio 4.0 - Plugin Pak
 
-A set of experimental plugins for GB Studio 3.2. Use them at your own risk :)
+A set of experimental plugins for GB Studio 4.0. Use them at your own risk :)
 
 ## Dialogue & Menus
 
@@ -12,7 +12,7 @@ The `Text` tab behaves exactly like the **Display Dialogue** event.
 
 The `Layout` tab allows to configure multiple options for the dialogue box:
 
-- Minimum and maximum height of the display box, and if the border should be rendered or not.
+- Minimum and maximum height of the display box, and if the frame should be rendered or not.
 - The starting position of the text.
 - The maxmimum number of lines before the text will start scrolling up.
 - Configure when the dialogue will close:
@@ -45,8 +45,6 @@ _Note:_ The event can get very long when there's a lot of items.
 Renders a line of text at a specified position in the scene background.
 
 There's no maximum character length for the text, but the total amount of displayed characters in a scene is limited to by the number of tiles reserved for UI text (52 for non-color mode), this includes text displayed with this event but also any other dialogue or menu.
-
-Unfortunately, autocomplete of variables isn't available for single line textboxes in plugins. Use `$xxx$` to render a variable as part of the text, for example `$100` to render the value of `Variable 100`.
 
 <img width="300" alt="Background Text" src="screenshots/background_text.png"/>
 
@@ -174,12 +172,12 @@ Fade some or all of the current scene's background or sprites palettes to or fro
 
 The plugins in this category are even more experimental than the ones above and might change in the future.
 
+- **Set Dialogue Frame**:
+  - Replace the dialogue frame with a tileset. Only 24x24px tilesets are valid. 
 - **Move Variable Actor To and Store Variable Actor Position In Variables**:
   - These events duplicate existing GB Studio Actor events but instead of using a dropdown to select the actor they use a variable. The value of the variable represents the index of the actor in the scene (the player is always `0` and the rest of the actors have an index assigned based on when they were added to the scene).
 - **Actor FX**:
   - Run visual effects on an actor. Currently only Split In / Split Out effects are implemented. More to come (maybe?).
-- **Locked Event Group and Unlocked Event Group**:
-  - Lock or unlock the executuon of parts of your script. A locked script doesn't allow other scripts to run in parallel.
 - **Pin Actor to Screen and Unpin Actor from Screen**:
   - Pin or Unpin the actor to its current screen coordinates. Be aware of the current state of the actor: If it's already pinned or unpinned when the event is called its position will be wrongly offset based on the scroll position.
 

@@ -120,7 +120,8 @@ const fields = [].concat(
           },
           {
             key: `option_${idx}_text`,
-            type: "text",
+            type: "textarea",
+            singleLine: true,
             label: `Set to '${idx}' if`,
             placeholder: `Item ${idx}`,
             defaultValue: "",

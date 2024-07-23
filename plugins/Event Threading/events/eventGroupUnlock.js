@@ -11,7 +11,11 @@ const fields = [
 ];
 
 const compile = (input, helpers) => {
-  const { appendRaw, compileEvents } = helpers;
+  const { appendRaw, compileEvents, warnings } = helpers;
+
+  warnings(
+    '"Unlocked Event Group" is deprecated and will be removed from the Plugin Pak in the future. Use the "Script Unlock" event instead.'
+  );
 
   appendRaw("VM_UNLOCK");
   compileEvents(input.true);
@@ -19,6 +23,7 @@ const compile = (input, helpers) => {
 };
 
 module.exports = {
+  // deprecated: true,
   id,
   name,
   groups,
