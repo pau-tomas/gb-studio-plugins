@@ -80,6 +80,25 @@ const fields = [].concat(
       ],
     },
     {
+      key: `boxWidth`,
+      label: "Width",
+      type: "select",
+      defaultValue: "100-full",
+      options: [
+        ["100-full", "Full"],
+        //["50-left", "50% Left Aligned"],
+        ["50-right", "50% Right Aligned"],
+        //["75-left", "75% Left Aligned"],
+        ["75-right", "75% Right Aligned"],
+      ],
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["layout"],
+        },
+      ],
+    },
+    {
       type: "group",
       conditions: [
         {
@@ -260,6 +279,11 @@ const compile = (input, helpers) => {
   const textY = input.textY === null ? 1 : input.textY;
   const textHeight = input.textHeight === null ? 3 : input.textHeight;
   const renderOnTop = input.position === "top";
+  const renderWidth = input.boxWidth || "100-full";
+  const renderOverlay = {
+    xOffset: 0,
+    width: 20,
+  };
   const isModal = input.closeWhen !== "notModal";
 
   console.log(input);
@@ -282,6 +306,29 @@ const compile = (input, helpers) => {
   );
 
   console.log(minHeight, minNumLines, maxHeight);
+
+  switch (renderWidth) {
+    case "100-full":
+      renderOverlay.xOffset = 0;
+      renderOverlay.width = 20;
+      break;
+    case "50-left":
+      renderOverlay.xOffset = 0;
+      renderOverlay.width = 10;
+      break;
+    case "50-right":
+      renderOverlay.xOffset = 10;
+      renderOverlay.width = 10;
+      break;
+    case "75-left":
+      renderOverlay.xOffset = 0;
+      renderOverlay.width = 15;
+      break;
+    case "75-right":
+      renderOverlay.xOffset = 5;
+      renderOverlay.width = 15;
+      break;
+  }
 
   const textBoxHeight = Math.max(minNumLines, minHeight);
   const textBoxY = renderOnTop ? 0 : 18 - textBoxHeight;
@@ -325,20 +372,31 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
       _overlayClear(
         0,
         0,
-        20,
+        renderOverlay.width,
         textBoxHeight,
         ".UI_COLOR_WHITE",
         input.showBorder
       );
     }
 
+    // If there's an offset then we need to offset the starting position of the overlay.
+    // Use -3 for speed to instantly move the overlay to just below the screen with the correct offsets.
+    // If we don't do this then the overlay will move in from the bottom left across the screen instead of straight up
+    if (textIndex === 0 && renderOverlay.xOffset > 0) {
+      _overlayMoveTo(renderOverlay.xOffset, 18, -3);
+    }
+
+    // Now push the overlay up with the correct offsets
     if (textIndex === 0) {
-      _overlayMoveTo(0, textBoxY, speedIn);
+      _overlayMoveTo(renderOverlay.xOffset, textBoxY, speedIn);
     }
 
     appendRaw(
       `VM_OVERLAY_SET_SCROLL   ${textX + (avatarId ? 3 : 0)}, ${textY}, ${
-        (input.showBorder ? 19 : 20) - (avatarId ? 3 : 0) - textX
+        (input.showBorder ? 19 : 20) -
+        (avatarId ? 3 : 0) -
+        textX -
+        renderOverlay.xOffset
       }, ${textHeight}, .UI_COLOR_WHITE`
     );
 
@@ -363,7 +421,7 @@ VM_SET_CONST_UINT8 _overlay_cut_scanline, ${textBoxHeight * 8 - 1}`);
 
     if (textIndex === textInputs.length - 1) {
       if (isModal) {
-        _overlayMoveTo(0, 18, speedOut);
+        _overlayMoveTo(renderOverlay.xOffset, 18, speedOut);
         _overlayWait(isModal, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
       }
     }
