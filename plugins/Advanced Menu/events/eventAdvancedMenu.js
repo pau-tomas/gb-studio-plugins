@@ -11,15 +11,10 @@ const decOct = (dec) => wrap8Bit(dec).toString(8).padStart(3, "0");
 const fields = [].concat(
   [
     {
-      key: "variable",
-      label: "Set Variable",
-      type: "variable",
-      defaultValue: "LAST_VARIABLE",
-    },
-    {
       key: "__scriptTabs",
       type: "tabs",
       defaultValue: "items",
+      variant: "eventSection",
       values: {
         items: "Items",
         text: "Layout",
@@ -29,48 +24,42 @@ const fields = [].concat(
   // Layout tab
   [
     {
-      key: `width`,
-      label: "Width",
-      type: "number",
-      min: 1,
-      max: 20,
-      width: "50%",
-      defaultValue: 20,
+      type: "group",
+      wrapItems: true,
       conditions: [
         {
           key: "__scriptTabs",
           in: ["text"],
         },
       ],
-    },
-    {
-      key: `height`,
-      label: "Height",
-      type: "number",
-      min: 1,
-      max: 18,
-      width: "50%",
-      defaultValue: 5,
-      conditions: [
+      fields: [
         {
-          key: "__scriptTabs",
-          in: ["text"],
+          key: `width`,
+          label: "Width",
+          type: "number",
+          min: 1,
+          max: 20,
+          width: "50%",
+          defaultValue: 20,
         },
-      ],
-    },
-    {
-      key: `from`,
-      label: "Appear from",
-      type: "select",
-      options: [
-        ["bottom", "↑ Bottom"],
-        ["right", "← Right"],
-      ],
-      defaultValue: "bottom",
-      conditions: [
         {
-          key: "__scriptTabs",
-          in: ["text"],
+          key: `height`,
+          label: "Height",
+          type: "number",
+          min: 1,
+          max: 18,
+          width: "50%",
+          defaultValue: 5,
+        },
+        {
+          key: `from`,
+          label: "Appear from",
+          type: "select",
+          options: [
+            ["bottom", "↑ Bottom"],
+            ["right", "← Right"],
+          ],
+          defaultValue: "bottom",
         },
       ],
     },
@@ -78,195 +67,179 @@ const fields = [].concat(
   // Items tab
   [
     {
-      key: "items",
-      label: "Number of options",
-      type: "number",
-      min: 2,
-      max: MAX_OPTIONS,
-      defaultValue: 2,
+      type: "group",
+      wrapItems: true,
       conditions: [
         {
           key: "__scriptTabs",
           in: ["items"],
+        },
+      ],
+      fields: [
+        {
+          key: "variable",
+          label: "Set Variable",
+          type: "variable",
+          defaultValue: "LAST_VARIABLE",
+          width: "50%",
+        },
+        {
+          key: "items",
+          label: "Number of options",
+          type: "number",
+          min: 2,
+          max: MAX_OPTIONS,
+          defaultValue: 2,
+          width: "50%",
+        },
+        {
+          type: "break",
         },
       ],
     },
     {
-      type: "break",
+      type: "group",
+      wrapItems: true,
       conditions: [
         {
           key: "__scriptTabs",
           in: ["items"],
         },
       ],
+      fields: [
+        ...Array(MAX_OPTIONS)
+          .fill()
+          .reduce((arr, _, i) => {
+            const idx = i + 1;
+            arr.push(
+              {
+                type: "break",
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+              },
+              {
+                key: `option_${idx}_text`,
+                type: "textarea",
+                singleLine: true,
+                label: `Set to '${idx}' if`,
+                placeholder: `Item ${idx}`,
+                defaultValue: "",
+                flexBasis: "100%",
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+              },
+              {
+                key: `option${idx}_x`,
+                label: "X",
+                type: "number",
+                min: 0,
+                max: 20,
+                width: "50%",
+                defaultValue: 0,
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+              },
+              {
+                key: `option${idx}_y`,
+                label: "Y",
+                type: "number",
+                min: 0,
+                max: 18,
+                width: "50%",
+                defaultValue: 0,
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+              },
+              {
+                type: "break",
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+              },
+              {
+                type: "group",
+                wrapItems: true,
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+                fields: [
+                  {
+                    key: `option${idx}_l`,
+                    label: "On Left move to",
+                    type: "number",
+                    min: 0,
+                    max: MAX_OPTIONS,
+                    width: "50%",
+                    defaultValue: 0,
+                  },
+                  {
+                    key: `option${idx}_r`,
+                    label: "On Right move to",
+                    type: "number",
+                    min: 0,
+                    max: MAX_OPTIONS,
+                    width: "50%",
+                    defaultValue: 0,
+                  },
+                ],
+              },
+              {
+                type: "group",
+                wrapItems: true,
+                conditions: [
+                  {
+                    key: "items",
+                    gte: idx,
+                  },
+                ],
+                fields: [
+                  {
+                    key: `option${idx}_u`,
+                    label: "On Up move to",
+                    type: "number",
+                    min: 0,
+                    max: MAX_OPTIONS,
+                    width: "50%",
+                    defaultValue: 0,
+                  },
+                  {
+                    key: `option${idx}_d`,
+                    label: "On Down move to",
+                    type: "number",
+                    min: 0,
+                    max: MAX_OPTIONS,
+                    width: "50%",
+                    defaultValue: 0,
+                  },
+                ],
+              }
+            );
+            return arr;
+          }, []),
+      ],
     },
-    ...Array(MAX_OPTIONS)
-      .fill()
-      .reduce((arr, _, i) => {
-        const idx = i + 1;
-        arr.push(
-          {
-            type: "break",
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option_${idx}_text`,
-            type: "textarea",
-            singleLine: true,
-            label: `Set to '${idx}' if`,
-            placeholder: `Item ${idx}`,
-            defaultValue: "",
-            flexBasis: "100%",
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_x`,
-            label: "X",
-            type: "number",
-            min: 0,
-            max: 20,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_y`,
-            label: "Y",
-            type: "number",
-            min: 0,
-            max: 18,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            type: "break",
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_l`,
-            label: "On Left move to",
-            type: "number",
-            min: 0,
-            max: MAX_OPTIONS,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_r`,
-            label: "On Right move to",
-            type: "number",
-            min: 0,
-            max: MAX_OPTIONS,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_u`,
-            label: "On Up move to",
-            type: "number",
-            min: 0,
-            max: MAX_OPTIONS,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          },
-          {
-            key: `option${idx}_d`,
-            label: "On Down move to",
-            type: "number",
-            min: 0,
-            max: MAX_OPTIONS,
-            width: "50%",
-            defaultValue: 0,
-            conditions: [
-              {
-                key: "items",
-                gte: idx,
-              },
-              {
-                key: "__scriptTabs",
-                in: ["items"],
-              },
-            ],
-          }
-        );
-        return arr;
-      }, []),
   ]
 );
 
