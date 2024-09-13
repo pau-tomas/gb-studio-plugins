@@ -1,0 +1,63 @@
+{
+  "_resourceType": "actorPrefab",
+  "id": "20912212-2ad0-469f-8128-a043e360fd0a",
+  "name": "Sign",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "8ac1c36e-c4d2-430a-9470-79b4876ba28d",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "paletteId": "",
+  "persistent": false,
+  "collisionGroup": "",
+  "prefabScriptOverrides": {},
+  "script": [
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "cb6a1ecc-d264-4170-8824-eeb4c9ddfde6"
+      },
+      "id": "7be91409-2c72-4b15-a6ac-bbe094cbf2c5",
+      "children": {}
+    },
+    {
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          ""
+        ],
+        "__section": "behavior",
+        "avatarId": "",
+        "minHeight": 4,
+        "maxHeight": 7,
+        "textX": 1,
+        "textY": 1,
+        "textHeight": 5,
+        "position": "bottom",
+        "clearPrevious": true,
+        "showFrame": "true",
+        "speedIn": 1,
+        "speedOut": 1,
+        "closeWhen": "key",
+        "closeButton": "a",
+        "closeDelayTime": 0.5,
+        "closeDelayFrames": 30
+      },
+      "id": "262afb1b-6dd3-483f-8622-55493ede69c9",
+      "children": {}
+    },
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "03ba3407-8eea-4e48-b55e-53f51c3d80ba"
+      },
+      "id": "12b10249-c1f1-406d-ae98-51147b11264d",
+      "children": {}
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": []
+}

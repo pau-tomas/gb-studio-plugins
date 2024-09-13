@@ -1,0 +1,90 @@
+{
+  "_resourceType": "actor",
+  "id": "42512d27-c6f3-42b8-bcfa-0264e02ec141",
+  "name": "Turnip",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "59f631d7-8cfe-4dfe-bf84-f5a09814fc3a",
+  "prefabId": "",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "paletteId": "",
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "prefabScriptOverrides": {},
+  "symbol": "actor_1",
+  "script": [
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "gt",
+          "valueA": {
+            "type": "variable",
+            "value": "0"
+          },
+          "valueB": {
+            "type": "number",
+            "value": 0
+          }
+        },
+        "__collapseElse": true,
+        "__disableElse": true,
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_DEC_VALUE",
+            "args": {
+              "variable": "0"
+            },
+            "id": "aa1a1091-e76b-4e9a-8b7a-ed5d8bef7977"
+          },
+          {
+            "command": "PT_EVENT_HUD_DRAW_LIFEBAR",
+            "args": {
+              "__presetId": "8aa91de7-4b1b-4c49-81b1-6626617b5e2c",
+              "__section": "presets",
+              "x": {
+                "type": "number",
+                "value": 7
+              },
+              "y": {
+                "type": "number",
+                "value": 0
+              },
+              "tilesetId": "e615fa7a-b28d-4763-aeff-333003671570",
+              "tileIndex": {
+                "type": "number",
+                "value": 0
+              },
+              "currentValue": {
+                "type": "variable",
+                "value": "0"
+              },
+              "maxValue": {
+                "type": "variable",
+                "value": "1"
+              },
+              "steps": 4
+            },
+            "id": "e90dbe24-3690-4581-b699-faa7bc239422"
+          }
+        ],
+        "false": []
+      },
+      "id": "481885f6-54ff-4336-a1df-682c74bcf5a8"
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": [],
+  "x": 13,
+  "y": 6,
+  "_index": 1
+}

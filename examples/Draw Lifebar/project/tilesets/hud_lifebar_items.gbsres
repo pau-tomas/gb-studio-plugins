@@ -1,0 +1,11 @@
+{
+  "_resourceType": "tileset",
+  "id": "e615fa7a-b28d-4763-aeff-333003671570",
+  "name": "hud_lifebar_items",
+  "symbol": "tileset_hud_lifebar_items",
+  "width": 5,
+  "height": 1,
+  "imageWidth": 40,
+  "imageHeight": 8,
+  "filename": "hud_lifebar_items.png"
+}

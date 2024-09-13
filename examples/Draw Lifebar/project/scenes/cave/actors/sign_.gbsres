@@ -1,0 +1,77 @@
+{
+  "_resourceType": "actor",
+  "id": "49628d92-94ad-4b11-ae0a-7f6718124f68",
+  "name": "Sign ",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "50caa395-9f7d-40c9-b13d-2398eae78795",
+  "prefabId": "20912212-2ad0-469f-8128-a043e360fd0a",
+  "direction": "down",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "paletteId": "",
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "prefabScriptOverrides": {
+    "262afb1b-6dd3-483f-8622-55493ede69c9": {
+      "id": "262afb1b-6dd3-483f-8622-55493ede69c9",
+      "args": {
+        "text": [
+          "Talk to the Turnip\nto lose hearts",
+          "(Why would you\ndo that?)"
+        ]
+      }
+    }
+  },
+  "symbol": "actor_2",
+  "script": [
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "cb6a1ecc-d264-4170-8824-eeb4c9ddfde6"
+      },
+      "id": "0ab83f8d-e6c9-4381-9900-64bb6393f8ec"
+    },
+    {
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          "Talk to the Sage \nto gain hearts"
+        ],
+        "__section": "behavior",
+        "avatarId": "",
+        "minHeight": 4,
+        "maxHeight": 7,
+        "textX": 1,
+        "textY": 1,
+        "textHeight": 5,
+        "position": "bottom",
+        "clearPrevious": true,
+        "showFrame": "true",
+        "speedIn": -1,
+        "speedOut": -1,
+        "closeWhen": "key",
+        "closeButton": "a",
+        "closeDelayTime": 0.5,
+        "closeDelayFrames": 30
+      },
+      "id": "e7bb690f-8685-4487-b979-4e276dd367dc"
+    },
+    {
+      "command": "EVENT_CALL_CUSTOM_EVENT",
+      "args": {
+        "customEventId": "03ba3407-8eea-4e48-b55e-53f51c3d80ba"
+      },
+      "id": "329ef9f8-1dd0-4882-8628-d856a47c05ec"
+    }
+  ],
+  "startScript": [],
+  "updateScript": [],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": [],
+  "x": 13,
+  "y": 12,
+  "_index": 2
+}
