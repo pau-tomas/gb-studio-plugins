@@ -19,6 +19,8 @@ Draw a (life/power/mana)bar to a specified position on the overlay.
 
 [Example project](examples/Draw%20Lifebar/)
 
+_Note:_ The tileset will load in tile 128 of VRAM (right after the sprites block). This allows combining the lifebar rendering with using `Draw Text` on the overlay. The VRAM index can be changed by editing the `const VRAM_BASE_START_TILE = 128` line in the plugin file.
+
 <img width="300" alt="Draw Lifebar" src="screenshots/draw_lifebar.png"/>
 
 <img width="300" alt="Draw Lifebar" src="screenshots/draw_lifebar_screenshot.png"/>
