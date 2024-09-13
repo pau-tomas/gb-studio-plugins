@@ -7,6 +7,22 @@ A set of experimental plugins for GB Studio 4.1. Use them at your own risk :)
 
 ## Dialogue & Menus
 
+### Draw Lifebar
+
+Draw a (life/power/mana)bar to a specified position on the overlay.
+- `X`, `Y`: Tile coordinates on the overlay.
+- `Tileset`: A tileset that includes the tiles for the bar in consecutive order.
+- `Tile`: The first tile of the bar in the tileset (usually the empty tile).
+- `Value`: The current value to be represented by the bar.
+- `Max Value`: The maximum value that can be represented by the bar.
+- `Steps`: The number of tiles needed to "fill" an item in the bar (not including the empty one).
+
+[Example project](examples/Draw%20Lifebar/)
+
+<img width="300" alt="Draw Lifebar" src="screenshots/draw_lifebar.png"/>
+
+<img width="300" alt="Draw Lifebar" src="screenshots/draw_lifebar_screenshot.png"/>
+
 ### Display Advanced Menu
 
 Display a menu of multiple options and set the specified variable to the value of the chosen option.
