@@ -1,0 +1,26 @@
+{
+  "_resourceType": "script",
+  "id": "cb6a1ecc-d264-4170-8824-eeb4c9ddfde6",
+  "name": "HUD/Hide",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_2",
+  "script": [
+    {
+      "command": "EVENT_OVERLAY_HIDE",
+      "args": {},
+      "id": "f74a302e-64dd-4681-a031-80d5b239af2c"
+    },
+    {
+      "command": "EVENT_OVERLAY_SET_SCANLINE_CUTOFF",
+      "args": {
+        "y": {
+          "type": "number",
+          "value": 150
+        }
+      },
+      "id": "6239e25c-cf86-4190-a7a0-0f51490a752d"
+    }
+  ]
+}

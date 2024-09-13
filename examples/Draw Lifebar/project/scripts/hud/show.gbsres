@@ -1,0 +1,66 @@
+{
+  "_resourceType": "script",
+  "id": "03ba3407-8eea-4e48-b55e-53f51c3d80ba",
+  "name": "HUD/Show",
+  "description": "",
+  "variables": {},
+  "actors": {},
+  "symbol": "script_1",
+  "script": [
+    {
+      "command": "EVENT_TEXT",
+      "args": {
+        "text": [
+          "Health:"
+        ],
+        "__section": "text",
+        "avatarId": "",
+        "minHeight": 1,
+        "maxHeight": 1,
+        "textX": 0,
+        "textY": 0,
+        "textHeight": 1,
+        "position": "top",
+        "clearPrevious": true,
+        "showFrame": false,
+        "speedIn": 0,
+        "speedOut": 0,
+        "closeWhen": "notModal",
+        "closeButton": "a",
+        "closeDelayTime": 0.5,
+        "closeDelayFrames": 30
+      },
+      "id": "c0449ba7-8ed0-4a2e-b627-bb87bc5b7719"
+    },
+    {
+      "command": "PT_EVENT_HUD_DRAW_LIFEBAR",
+      "args": {
+        "__presetId": "8aa91de7-4b1b-4c49-81b1-6626617b5e2c",
+        "__section": "presets",
+        "x": {
+          "type": "number",
+          "value": 7
+        },
+        "y": {
+          "type": "number",
+          "value": 0
+        },
+        "tilesetId": "e615fa7a-b28d-4763-aeff-333003671570",
+        "tileIndex": {
+          "type": "number",
+          "value": 0
+        },
+        "currentValue": {
+          "type": "variable",
+          "value": "0"
+        },
+        "maxValue": {
+          "type": "variable",
+          "value": "1"
+        },
+        "steps": 4
+      },
+      "id": "287b8318-ae44-424d-94a7-8f2696891768"
+    }
+  ]
+}

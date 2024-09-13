@@ -1,0 +1,9 @@
+{
+  "_resourceType": "music",
+  "id": "d7885415-8999-4220-bb81-c1e7627859f7",
+  "name": "template",
+  "symbol": "song_template",
+  "filename": "template.mod",
+  "settings": {},
+  "type": "mod"
+}

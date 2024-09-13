@@ -1,0 +1,20 @@
+{
+  "_resourceType": "variables",
+  "variables": [
+    {
+      "id": "0",
+      "name": "Health",
+      "symbol": "var_health"
+    },
+    {
+      "id": "1",
+      "name": "Max Health",
+      "symbol": "var_max_health"
+    },
+    {
+      "id": "f5f47eeb-a598-4807-aacf-7ee9a0f1b513__L0",
+      "name": "Local 0",
+      "symbol": "var_local_0"
+    }
+  ]
+}
