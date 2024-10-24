@@ -1,0 +1,10 @@
+{
+  "type": "eventsPlugin",
+  "name": "Variable Actor",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "Adds two events Move Variable Actor To and Store Variable Actor Position In Variables\nThese events duplicate existing GB Studio Actor events, but instead of using a dropdown to select the actor, they use a variable. The value of the variable represents the index of the actor in the scene (the player is always 0, and the rest of the actors have an index assigned based on when they were added to the scene).",
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}

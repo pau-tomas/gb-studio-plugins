@@ -1,0 +1,14 @@
+{
+  "type": "eventsPlugin",
+  "name": "Draw Lifebar",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "Draw a (life/power/mana)bar to a specified position on the overlay.\nNote: The tileset will load at tile 128 of VRAM (right after the sprites block). This allows combining lifebar rendering with Draw Text on the overlay. The VRAM index can be changed by editing the const VRAM_BASE_START_TILE = 128 line in the plugin file.",
+  "images": [
+    "screenshots/draw_lifebar_screenshot.png",
+    "screenshots/draw_lifebar.png"
+  ],
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}

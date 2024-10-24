@@ -1,0 +1,10 @@
+{
+  "type": "eventsPlugin",
+  "name": "Actor Flags",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "Adds two events: Pin Actor to Screen and Unpin Actor from Screen\nPin or Unpin the actor to its current screen coordinates.\nBe aware of the current state of the actor: If it's already pinned or unpinned when the event is called its position will be wrongly offset based on the scroll position.",
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}

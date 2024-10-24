@@ -1,0 +1,15 @@
+{
+  "type": "eventsPlugin",
+  "name": "Advanced Menu",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "Display a menu with multiple options and set the specified variable to the value of the chosen option. Menu option position and navigation order can be set for each item in the Items tab. You can optionally set the 'B' button to close the menu by setting the variable to '0', and you can also make the last menu item return '0' when selected. The dialogue box size, opening and closing direction, and the position of the menu (top or bottom) can be set in the Layout tab. The opening and closing speed of the menu can be set in the Behavior tab.\nThere's no maximum character length per item, but the total number of displayed characters is limited by the number of tiles reserved for UI text (52 for non-color mode).\nNote: The event can become very long when there are many items.",
+  "images": [
+    "screenshots/advanced_menu_screenshot.png",
+    "screenshots/advanced_menu_items.png",
+    "screenshots/advanced_menu_layout.png"
+  ],
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}
