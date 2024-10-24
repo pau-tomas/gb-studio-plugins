@@ -1,0 +1,9 @@
+{
+  "type": "eventsPlugin",
+  "name": "RTC",
+  "author": "pautomas",
+  "license": "MIT",
+  "description": "A set of events that give access to the Real Time Clock functionality present in some GB cartridges.\n_Note:_ Cartridge type needs to be set to `MBC3` in the project Settings, for RTC to work.",
+  "version": "0.0.1",
+  "gbsVersion": ">=4.2.0"
+}

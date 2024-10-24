@@ -1,0 +1,71 @@
+name: Deploy Plugin Repository
+
+on:
+  push:
+    branches:
+      - repository
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/repository'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "21.7.1"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Dependencies
+        run: |
+          yarn
+
+      - name: Create dist directory
+        run: |
+          mkdir ./dist
+
+      - name: Restore cache
+        uses: actions/cache/restore@v4
+        id: cache-restore
+        with:
+          key: ${{ runner.os }}-dist
+          path: ./dist
+
+      - name: Generate output
+        run: |
+          yarn run build
+
+      - name: Save cache
+        uses: actions/cache/save@v4
+        id: cache-save
+        with:
+          path: ./dist
+          key: ${{ runner.os }}-dist
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

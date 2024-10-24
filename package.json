@@ -1,0 +1,19 @@
+{
+  "name": "gb-studio-plugins",
+  "version": "1.0.0",
+  "description": "pautomas's GB Studio Plugin Repository",
+  "main": "build.js",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "serve": "node serve.js"
+  },
+  "author": "pautomas",
+  "license": "MIT",
+  "packageManager": "yarn@4.4.1",
+  "dependencies": {
+    "express": "^4.21.0",
+    "glob": "^11.0.0",
+    "live-server": "^1.2.2"
+  }
+}
