@@ -69,53 +69,6 @@ Stops the real time clock.
 
 <img width="300" alt="Stop Clock" src="screenshots/stop_clock.png"/>
 
-## Player Fields
-
-### Store Player Field In Variable
-
-Store the value of a Player Field in a variable.
-
-The available fields are:
-
-- Platformer scenes:
-  - `Player Velocity X`: Current horizontal velocity for the player.
-  - `Player Velocity Y`: Current vertical (jumping) velocity for the player.
-  - `Player is in the ground`: `1` if the player is jumping or `0` if it's not.
-  - `Player is on ladder`: `0` if the player is on a ladder or `1` if it's not.
-
-<img width="300" alt="Store Player Field In Variable" src="screenshots/store_player_field.png"/>
-
-### Player Field Update
-
-Change the value of a Player Field.
-
-The available fields are:
-
-- Platformer scenes:
-  - `Player Velocity X`: Current horizontal velocity for the player.
-  - `Player Velocity Y`: Current vertical (jumping) velocity for the player.
-
-<img width="300" alt="Player Field Update" src="screenshots/player_field_update.png"/>
-
-## Camera
-
-### Store Camera Field In Variable
-
-Store the value of a Camera Field in a variable.
-
-The available fields are:
-
-- `Camera X`: Current horizontal camera position.
-- `Camera Y`: Current vertical camera position.
-- `Scroll X`: Current horizontal scroll position.
-- `Scroll Y`: Current vertical scroll position.
-- `Camera Deadzone X`: Current horizontal edge for the camera window.
-- `Camera Deadzone Y`: Current vertical edge for the camera window.
-- `Camera Offset X`: Current horizontal camera position relative to the edge of the screen.
-- `Camera Offset Y`: Current vertical camera position relative to the edge of the screen.
-
-<img width="300" alt="Store Camera Field In Variable" src="screenshots/store_camera_field.png"/>
-
 ## Screen
 
 ### Smooth Fade
@@ -152,6 +105,11 @@ Drop the `plugins` folder in your project. All the above events will be availabl
 ## Deprecated Plugin Events
 
 The following event plugins aren't available as part of the Plugin Pak anymore as their functionality has been added to GB Studio natively.
+
+Since 4.2:
+- Player Field Update
+- Store Player Field In Variable
+- Store Camera Field In Variable
 
 Since 4.1:
 - Display Advanced Dialogue
