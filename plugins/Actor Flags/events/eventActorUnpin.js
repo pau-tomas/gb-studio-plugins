@@ -7,6 +7,7 @@ const fields = [].concat([
     key: "actorId",
     label: "Actor",
     type: "actor",
+    defaultValue: "$self$",
   },
   {
     label:
