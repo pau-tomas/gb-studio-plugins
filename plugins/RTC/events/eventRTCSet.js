@@ -65,13 +65,12 @@ const compile = (input, helpers) => {
   const {
     appendRaw,
     getVariableAlias,
-    _isArg,
+    _isIndirectVariable,
     _stackPushConst,
     _addComment,
     _stackPop,
     _stackPush,
     _stackPushInd,
-    _stackOffset,
   } = helpers;
 
   const {
@@ -99,8 +98,8 @@ const compile = (input, helpers) => {
   if (typeSeconds === "number") {
     _stackPushConst(valueSeconds, "Seconds");
   } else {
-    if (_isArg(secondsVariableAlias)) {
-      _stackPushInd(_stackOffset(secondsVariableAlias), "Seconds");
+    if (_isIndirectVariable(secondsVariableAlias)) {
+      _stackPushInd(secondsVariableAlias, "Seconds");
     } else {
       _stackPush(secondsVariableAlias, "Seconds");
     }
@@ -109,8 +108,8 @@ const compile = (input, helpers) => {
   if (typeMinutes === "number") {
     _stackPushConst(valueMinutes, "Minutes");
   } else {
-    if (_isArg(minutesVariableAlias)) {
-      _stackPushInd(_stackOffset(minutesVariableAlias), "Minutes");
+    if (_isIndirectVariable(minutesVariableAlias)) {
+      _stackPushInd(minutesVariableAlias, "Minutes");
     } else {
       _stackPush(minutesVariableAlias, "Minutes");
     }
@@ -119,8 +118,8 @@ const compile = (input, helpers) => {
   if (typeHours === "number") {
     _stackPushConst(valueHours, "Hours");
   } else {
-    if (_isArg(hoursVariableAlias)) {
-      _stackPushInd(_stackOffset(hoursVariableAlias), "Hours");
+    if (_isIndirectVariable(hoursVariableAlias)) {
+      _stackPushInd(hoursVariableAlias, "Hours");
     } else {
       _stackPush(hoursVariableAlias, "Hours");
     }
@@ -129,8 +128,8 @@ const compile = (input, helpers) => {
   if (typeDays === "number") {
     _stackPushConst(valueDays, "Days");
   } else {
-    if (_isArg(daysVariableAlias)) {
-      _stackPushInd(_stackOffset(daysVariableAlias), "Days");
+    if (_isIndirectVariable(daysVariableAlias)) {
+      _stackPushInd(daysVariableAlias, "Days");
     } else {
       _stackPush(daysVariableAlias, "Days");
     }
