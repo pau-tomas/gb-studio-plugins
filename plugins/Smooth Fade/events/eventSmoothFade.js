@@ -220,7 +220,6 @@ const compile = (input, helpers) => {
 
   _addComment(`Smooth fade ${input.direction} (${maxSteps} steps)`);
 
-  console.log(input, helpers);
   for (let i = 0; i < maxSteps; i++) {
     const bgFadeStep = bgSteps[i];
     _paletteLoad(bgMask, ".PALETTE_BKG", true);
