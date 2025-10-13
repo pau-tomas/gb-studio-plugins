@@ -27,9 +27,7 @@ _Note:_ The tileset will load in tile 128 of VRAM (right after the sprites block
 
 ### Display Advanced Menu
 
-Display a menu of multiple options and set the specified variable to the value of the chosen option.
-
-Menu option position and navigation order can be set for each item in the `Items` tab. The dialogue box size and the opening and closing direction can be set in the `Layout` tab.
+Display a menu of multiple options and set the specified variable to the value of the chosen option. Menu option position and navigation order can be set for each item in the `Items` tab. You can optionally set the 'B' button to close the menu setting the variable to '0' and can also make the last menu item return '0' when selected. The dialogue box size, opening and closing direction and the position of the menu (top or bottom) can be set in the `Layout` tab. The opening and closing speed of the menu can be set in the `Behavior` tab.
 
 There's no maximum character length per item, but the total amount of displayed characters is limited to by the number of tiles reserved for UI text (52 for non-color mode).
 

@@ -8,6 +8,16 @@ const wrap8Bit = (val) => (256 + (val % 256)) % 256;
 
 const decOct = (dec) => wrap8Bit(dec).toString(8).padStart(3, "0");
 
+const convertSpeed = (value) => {
+  if (value > 0) {
+    return value - 1;
+  }
+  if (value === 0) {
+    return -3;
+  }
+  return -1;
+};
+
 const fields = [].concat(
   [
     {
@@ -18,6 +28,7 @@ const fields = [].concat(
       values: {
         items: "Items",
         text: "Layout",
+        behavior: "Behavior",
       },
     },
   ],
@@ -51,15 +62,126 @@ const fields = [].concat(
           width: "50%",
           defaultValue: 5,
         },
+      ],
+    },
+    {
+      key: `position`,
+      label: "Position",
+      type: "select",
+      defaultValue: "bottom",
+      width: "100%",
+      options: [
+        ["bottom", "⬓ Bottom"],
+        ["top", "⬒ Top"],
+      ],
+      conditions: [
         {
-          key: `from`,
-          label: "Appear from",
-          type: "select",
-          options: [
-            ["bottom", "↑ Bottom"],
-            ["right", "← Right"],
+          key: "__scriptTabs",
+          in: ["text"],
+        },
+        {
+          parallaxEnabled: false,
+        },
+      ],
+    },
+    {
+      key: `from`,
+      label: "Appear from",
+      type: "select",
+      options: [
+        ["bottom", "↑ Bottom"],
+        ["right", "← Right"],
+      ],
+      defaultValue: "bottom",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["text"],
+        },
+      ],
+    },
+    {
+      type: "group",
+      wrapItems: true,
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["text"],
+        },
+      ],
+      fields: [
+        {
+          type: "checkbox",
+          label: "Clear previous",
+          key: "clearPrevious",
+          width: "50%",
+          defaultValue: true,
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["text"],
+            },
           ],
-          defaultValue: "bottom",
+        },
+        {
+          type: "checkbox",
+          label: "Show frame",
+          key: "showFrame",
+          width: "50%",
+          defaultValue: true,
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["text"],
+            },
+            {
+              key: "clearPrevious",
+              in: [true, undefined],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+  // Behavior tab
+  [
+    {
+      type: "group",
+      alignBottom: true,
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["behavior"],
+        },
+      ],
+      fields: [
+        {
+          label: "Text Open Speed",
+          key: "speedIn",
+          type: "cameraSpeed",
+          defaultValue: -1,
+          width: "50%",
+          allowDefault: true,
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["behavior"],
+            },
+          ],
+        },
+        {
+          label: "Text Close Speed",
+          key: "speedOut",
+          type: "cameraSpeed",
+          defaultValue: -1,
+          width: "50%",
+          allowDefault: true,
+          conditions: [
+            {
+              key: "__scriptTabs",
+              in: ["behavior"],
+            },
+          ],
         },
       ],
     },
@@ -84,18 +206,30 @@ const fields = [].concat(
           width: "50%",
         },
         {
-          key: "items",
-          label: "Number of options",
-          type: "number",
-          min: 2,
-          max: MAX_OPTIONS,
-          defaultValue: 2,
+          type: "checkbox",
+          label: "Use as default item",
+          key: "setStartValue",
+          defaultValue: false,
           width: "50%",
         },
+      ],
+    },
+    {
+      key: "items",
+      label: "Number of options",
+      type: "number",
+      min: 2,
+      max: MAX_OPTIONS,
+      defaultValue: 2,
+      conditions: [
         {
-          type: "break",
+          key: "__scriptTabs",
+          in: ["items"],
         },
       ],
+    },
+    {
+      type: "break",
     },
     {
       type: "group",
@@ -132,7 +266,46 @@ const fields = [].concat(
                 conditions: [
                   {
                     key: "items",
-                    gte: idx,
+                    gt: idx,
+                  },
+                ],
+              },
+              {
+                key: `option_${idx}_text`,
+                type: "textarea",
+                singleLine: true,
+                label: `Set to '${idx}' if`,
+                placeholder: `Item ${idx}`,
+                defaultValue: "",
+                flexBasis: "100%",
+                conditions: [
+                  {
+                    key: "items",
+                    eq: idx,
+                  },
+                  {
+                    key: "cancelOnLastOption",
+                    ne: true,
+                  },
+                ],
+              },
+
+              {
+                key: `option_${idx}_text`,
+                type: "textarea",
+                singleLine: true,
+                label: `Set to '0' if`,
+                placeholder: `Item ${idx}`,
+                defaultValue: "",
+                flexBasis: "100%",
+                conditions: [
+                  {
+                    key: "items",
+                    eq: idx,
+                  },
+                  {
+                    key: "cancelOnLastOption",
+                    eq: true,
                   },
                 ],
               },
@@ -177,7 +350,7 @@ const fields = [].concat(
               },
               {
                 type: "group",
-                wrapItems: true,
+                wrapItems: false,
                 conditions: [
                   {
                     key: "items",
@@ -191,7 +364,7 @@ const fields = [].concat(
                     type: "number",
                     min: 0,
                     max: MAX_OPTIONS,
-                    width: "50%",
+                    width: "25%",
                     defaultValue: 0,
                   },
                   {
@@ -200,28 +373,16 @@ const fields = [].concat(
                     type: "number",
                     min: 0,
                     max: MAX_OPTIONS,
-                    width: "50%",
+                    width: "25%",
                     defaultValue: 0,
                   },
-                ],
-              },
-              {
-                type: "group",
-                wrapItems: true,
-                conditions: [
-                  {
-                    key: "items",
-                    gte: idx,
-                  },
-                ],
-                fields: [
                   {
                     key: `option${idx}_u`,
                     label: "On Up move to",
                     type: "number",
                     min: 0,
                     max: MAX_OPTIONS,
-                    width: "50%",
+                    width: "25%",
                     defaultValue: 0,
                   },
                   {
@@ -230,7 +391,7 @@ const fields = [].concat(
                     type: "number",
                     min: 0,
                     max: MAX_OPTIONS,
-                    width: "50%",
+                    width: "25%",
                     defaultValue: 0,
                   },
                 ],
@@ -238,6 +399,31 @@ const fields = [].concat(
             );
             return arr;
           }, []),
+      ],
+    },
+    {
+      type: "group",
+      wrapItems: true,
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["items"],
+        },
+      ],
+      fields: [
+        {
+          type: "checkbox",
+          label: "Last option sets to '0'",
+          key: "cancelOnLastOption",
+          width: "50%",
+        },
+        {
+          type: "checkbox",
+          label: "Set to '0' if 'B' is pressed",
+          key: "cancelOnB",
+          defaultValue: true,
+          width: "50%",
+        },
       ],
     },
   ]
@@ -255,6 +441,12 @@ const compile = (input, helpers) => {
     _displayText,
     getVariableAlias,
     _addNL,
+    _stackPushConst,
+    _getMemUInt8,
+    _setConstMemUInt8,
+    _setMemUInt8,
+    _idle,
+    _stackPop,
   } = helpers;
 
   let str = "";
@@ -274,22 +466,35 @@ const compile = (input, helpers) => {
       }
     });
 
-  const menuWidth = input.width || 20;
-  const menuHeight = input.height || 5;
+  const menuWidth = input.width ?? 20;
+  const menuHeight = input.height ?? 5;
+  const renderOnTop = input.position === "top" && !helpers.scene.parallax;
+  const textBoxY = renderOnTop ? 0 : 18 - menuHeight;
+  const clearPrevious = input.clearPrevious ?? true;
+  const showFrame = input.showFrame ?? true;
+  const cancelOnLastOption = input.cancelOnLastOption ?? false;
+  const cancelOnB = input.cancelOnB ?? true;
+  const setStartValue = input.setStartValue ?? false;
 
   const variableAlias = getVariableAlias(input.variable);
 
   const initialPosition = {
     x: input.from === "right" ? 20 : 20 - menuWidth,
-    y: input.from === "right" ? 18 - menuHeight : 18,
+    y: input.from === "right" ? textBoxY : renderOnTop ? menuHeight : 18,
   };
 
-  const speedIn = `.OVERLAY_IN_SPEED`;
-  const speedOut = `.OVERLAY_OUT_SPEED`;
+  const speedIn = convertSpeed(input.speedIn);
+  const speedOut = convertSpeed(input.speedOut);
 
   const instantTextSpeedCode = `\\001\\1`;
 
   _addComment("Advanced Menu");
+
+  if (renderOnTop) {
+    _stackPushConst(0);
+    _getMemUInt8(".ARG0", "overlay_cut_scanline");
+    _setConstMemUInt8("overlay_cut_scanline", menuHeight * 8 - 1);
+  }
 
   _overlayMoveTo(
     initialPosition.x,
@@ -299,15 +504,28 @@ const compile = (input, helpers) => {
 
   _loadStructuredText(`${instantTextSpeedCode}${str}`);
 
-  _overlayClear(0, 0, menuWidth, menuHeight, ".UI_COLOR_WHITE", true);
+  if (clearPrevious) {
+    _overlayClear(0, 0, menuWidth, menuHeight, ".UI_COLOR_WHITE", showFrame);
+  }
 
-  _overlayMoveTo(20 - menuWidth, 18 - menuHeight, speedIn);
+  _overlayMoveTo(20 - menuWidth, textBoxY, speedIn);
 
   _displayText();
 
   _overlayWait(true, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
 
-  _choice(variableAlias, [".UI_MENU_CANCEL_B"], input.items);
+  const choiceFlags = [];
+  if (cancelOnLastOption) {
+    choiceFlags.push(".UI_MENU_LAST_0");
+  }
+  if (cancelOnB) {
+    choiceFlags.push(".UI_MENU_CANCEL_B");
+  }
+  if (setStartValue) {
+    choiceFlags.push(".UI_MENU_SET_START");
+  }
+
+  _choice(variableAlias, choiceFlags, input.items);
 
   Array(input.items)
     .fill()
@@ -330,6 +548,13 @@ const compile = (input, helpers) => {
 
   _overlayMoveTo(0, 18, ".OVERLAY_SPEED_INSTANT");
 
+  // Reset scanline when rendering on top (as long as it wasn't non-modal)
+  if (renderOnTop) {
+    _overlayMoveTo(0, 18, ".OVERLAY_SPEED_INSTANT");
+    _idle();
+    _setMemUInt8("overlay_cut_scanline", ".ARG0");
+    _stackPop(1);
+  }
   _addNL();
 };
 
