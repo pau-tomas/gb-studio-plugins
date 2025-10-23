@@ -186,6 +186,18 @@ const fields = [].concat(
       ],
     },
   ],
+  {
+    label: "Keep visible after selection",
+    key: "keepVisible",
+    type: "checkbox",
+    width: "100%",
+    conditions: [
+      {
+        key: "__scriptTabs",
+        in: ["behavior"],
+      },
+    ],
+  },
   // Items tab
   [
     {
@@ -426,6 +438,77 @@ const fields = [].concat(
         },
       ],
     },
+  ],
+  // Warnings
+  [
+    {
+      label:
+        'To manually close a menu positioned at the top of the screen, you can use a "Close Non-Modal Dialogue" event or you will need to manually reset the overlay scanline cutoff with a "Set Overlay Scanline Cutoff" event.',
+      labelVariant: "warning",
+      flexBasis: "100%",
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["text", "behavior"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+        {
+          key: "keepVisible",
+          eq: true,
+        },
+        {
+          parallaxEnabled: false,
+        },
+      ],
+    },
+    {
+      type: "group",
+      wrapItems: true,
+      conditions: [
+        {
+          key: "__scriptTabs",
+          in: ["text", "behavior"],
+        },
+        {
+          key: "position",
+          eq: "top",
+        },
+        {
+          key: "keepVisible",
+          eq: true,
+        },
+        {
+          parallaxEnabled: false,
+        },
+      ],
+      fields: [
+        {
+          type: "addEventButton",
+          hideLabel: true,
+          label: "Close Non-Modal Dialogue",
+          defaultValue: {
+            id: "EVENT_DIALOGUE_CLOSE_NONMODAL",
+          },
+          width: "50%",
+        },
+        {
+          type: "addEventButton",
+          hideLabel: true,
+          label: "Set Overlay Scanline Cutoff",
+          defaultValue: {
+            id: "EVENT_OVERLAY_SET_SCANLINE_CUTOFF",
+            values: {
+              y: { type: "number", value: 150 },
+              units: "pixels",
+            },
+          },
+          width: "50%",
+        },
+      ],
+    },
   ]
 );
 
@@ -496,11 +579,13 @@ const compile = (input, helpers) => {
     _setConstMemUInt8("overlay_cut_scanline", menuHeight * 8 - 1);
   }
 
-  _overlayMoveTo(
-    initialPosition.x,
-    initialPosition.y,
-    ".OVERLAY_SPEED_INSTANT"
-  );
+  if (!input.keepVisible) {
+    _overlayMoveTo(
+      initialPosition.x,
+      initialPosition.y,
+      ".OVERLAY_SPEED_INSTANT"
+    );
+  }
 
   _loadStructuredText(`${instantTextSpeedCode}${str}`);
 
@@ -543,18 +628,22 @@ const compile = (input, helpers) => {
       _menuItem(fieldX, fieldY, left, right, up, down);
     });
 
-  _overlayMoveTo(initialPosition.x, initialPosition.y, speedOut);
-  _overlayWait(true, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
-
-  _overlayMoveTo(0, 18, ".OVERLAY_SPEED_INSTANT");
+  if (!input.keepVisible) {
+    _overlayMoveTo(initialPosition.x, initialPosition.y, speedOut);
+    _overlayWait(true, [".UI_WAIT_WINDOW", ".UI_WAIT_TEXT"]);
+    _overlayMoveTo(0, 18, ".OVERLAY_SPEED_INSTANT");
+  }
 
   // Reset scanline when rendering on top (as long as it wasn't non-modal)
-  if (renderOnTop) {
-    _overlayMoveTo(0, 18, ".OVERLAY_SPEED_INSTANT");
+  if (!input.keepVisible && renderOnTop) {
     _idle();
     _setMemUInt8("overlay_cut_scanline", ".ARG0");
+  }
+
+  if (renderOnTop) {
     _stackPop(1);
   }
+
   _addNL();
 };
 
