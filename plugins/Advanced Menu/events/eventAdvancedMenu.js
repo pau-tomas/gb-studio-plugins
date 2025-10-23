@@ -45,7 +45,7 @@ const fields = [].concat(
       ],
       fields: [
         {
-          key: `width`,
+          key: "width",
           label: "Width",
           type: "number",
           min: 1,
@@ -54,7 +54,7 @@ const fields = [].concat(
           defaultValue: 20,
         },
         {
-          key: `height`,
+          key: "height",
           label: "Height",
           type: "number",
           min: 1,
@@ -65,7 +65,7 @@ const fields = [].concat(
       ],
     },
     {
-      key: `position`,
+      key: "position",
       label: "Position",
       type: "select",
       defaultValue: "bottom",
@@ -85,7 +85,7 @@ const fields = [].concat(
       ],
     },
     {
-      key: `from`,
+      key: "from",
       label: "Appear from",
       type: "select",
       options: [
