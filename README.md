@@ -1,6 +1,6 @@
-# GB Studio 4.1 - Plugin Pak
+# GB Studio 4.2 - Plugin Pak
 
-A set of experimental plugins for GB Studio 4.1. Use them at your own risk :)
+A set of experimental plugins for GB Studio 4.2. Use them at your own risk :)
 
 > [!NOTE] 
 > A handful of previously available event plugins are now deprecated as their functionlity is part of GB Studio. [See the list below](#deprecated-plugins).
