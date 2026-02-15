@@ -1,0 +1,11 @@
+{
+  "type": "eventsPlugin",
+  "name": "Smooth Fade",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "Color Mode Only\nFade some or all of the current scene's background or sprites palettes to or from a white or black screen, interpolating the color values for a smooth fade.",
+  "images": ["screenshots/smooth_fade.png"],
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "eventsPlugin",
+  "name": "RTC",
+  "author": "Pau Tomàs",
+  "url": "https://github.com/pau-tomas/gb-studio-plugins",
+  "license": "MIT",
+  "description": "A set of events that give access to the Real Time Clock functionality present in some GB cartridges.\nNote: Cartridge type needs to be set to MBC3 in the project Settings, for RTC to work.",
+  "images": [
+    "screenshots/set_clock_time.png",
+    "screenshots/store_time_in_var.png",
+    "screenshots/start_clock.png",
+    "screenshots/stop_clock.png"
+  ],
+  "version": "1.0.0",
+  "gbsVersion": ">=4.2.0"
+}
