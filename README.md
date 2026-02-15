@@ -127,4 +127,5 @@ Since 4.0:
 - Locked Event Group
 - Unlocked Event Group
 
-If you're not using GB Studio 4.1 or above, you can still find the above [here](https://github.com/pau-tomas/gb-studio-plugins/tree/4.0).
+
+If you're not using GB Studio 4.2 or above, you can still find the above [here](https://github.com/pau-tomas/gb-studio-plugins/tree/4.1). For plugins compatible with 4.0 check [here](https://github.com/pau-tomas/gb-studio-plugins/tree/4.0)
