@@ -129,12 +129,18 @@ const fields = [
           eq: "sprites",
         },
       ],
-    }))
+    })),
 );
 
 const compile = (input, helpers) => {
-  const { palettes, settings, wait, _paletteLoad, _paletteColor, _addComment } =
-    helpers;
+  const {
+    palettes,
+    settings,
+    waitScriptValue,
+    _paletteLoad,
+    _paletteColor,
+    _addComment,
+  } = helpers;
 
   const bgPaletteIds = [
     input.bgPalette0,
@@ -236,7 +242,7 @@ const compile = (input, helpers) => {
         parseB(colors[2]),
         parseR(colors[3]),
         parseG(colors[3]),
-        parseB(colors[3])
+        parseB(colors[3]),
       );
     }
 
@@ -255,10 +261,11 @@ const compile = (input, helpers) => {
         parseB(colors[1]),
         parseR(colors[3]),
         parseG(colors[3]),
-        parseB(colors[3])
+        parseB(colors[3]),
       );
     }
-    wait(speed * 2);
+
+    waitScriptValue({ type: "number", value: speed * 2 }, "frames");
   }
 };
 
