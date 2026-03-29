@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=pau-tomas&project=gb-studio-plugins&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # GB Studio 4.2 - Plugin Pak
 
 A set of experimental plugins for GB Studio 4.2. Use them at your own risk :)
